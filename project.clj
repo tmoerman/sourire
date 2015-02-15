@@ -7,6 +7,7 @@
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [com.stuartsierra/component "0.2.2"]
                  [com.taoensso/timbre "3.3.1"]
+                 [prismatic/plumbing "0.3.7"]
 
                  [bidi "1.18.0"]
                  [ring "1.3.2"]

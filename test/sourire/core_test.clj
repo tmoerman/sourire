@@ -1,5 +1,5 @@
 (ns sourire.core-test
-  (:require [midje.sweet]
+  (:require [midje.sweet :refer :all]
             [sourire.core :refer :all]))
 
 
