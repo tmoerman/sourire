@@ -3,11 +3,14 @@
                                    IndigoRenderer]))
 
 (defn init-indigo-renderer
-  [opts]
+  [& opts]
   (let [indigo (new Indigo)
         renderer (new IndigoRenderer indigo)]
 
-    (for [[k v] opts] (doto indigo (.setOption k v)))
+    (if-let [kvs (some-> opts seq first)]
+      (doseq [[k v] kvs]
+        (do (println k v)
+            (doto indigo (.setOption k v)))))
 
     {:indigo indigo
      :renderer renderer}))
