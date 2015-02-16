@@ -18,7 +18,9 @@
     (let [params (req :params)
           smi    (-> (params :smi)
                      (url-decode))
-          opts   (dissoc params :smi)
+          opts   (-> params
+                     (dissoc :smi)
+                     (assoc :render-output-format "png"))
           indigo (init-indigo opts)
           bytes  (render-to-buffer indigo smi)
           image  (ByteArrayInputStream. bytes)]
