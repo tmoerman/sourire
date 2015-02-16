@@ -14,7 +14,7 @@
 (defn url-encode
   "URL encode the specified string s."
   [s]
-  (URLEncoder/encode s))
+  (URLEncoder/encode s "UTF-8"))
 
 (defn url-decode
   [s]
@@ -22,4 +22,4 @@
 
 (def url-encoded
   "A regex matching on url encoded strings."
-  #".*%[0-9a-fA-F]+|\.\.")
+  #".*%[0-9a-zA-Z]+|\.\.")
