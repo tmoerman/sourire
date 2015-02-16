@@ -26,6 +26,7 @@
   "Accepts an Indigo instance and a smiles string.
    Returns the molecule image as a byte array buffer."
   [indigo smi]
-  (let [renderer (new IndigoRenderer indigo)
+  (let [renderer (IndigoRenderer. indigo)
         molecule (.loadMolecule indigo smi)]
+    (.setOption indigo "render-output-format" "png")
     (.renderToBuffer renderer molecule)))
