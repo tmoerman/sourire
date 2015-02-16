@@ -11,8 +11,6 @@
 
                  [bidi "1.18.0"]
                  [ring "1.3.2"]
-                 [ring-middleware-format "0.4.0" :exclusions [ring]]
-                 [liberator "0.12.2"]
                  [http-kit "2.1.16"]
 
                  [com.ggasoftware/indigo "1.1.12"]
