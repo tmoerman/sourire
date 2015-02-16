@@ -9,18 +9,15 @@
          nested-params])
   (:import (java.io ByteArrayInputStream)))
 
-(defn serve-index [req] {:status 200 :body "Hello World!"})
+(defn serve-index [_]
+  {:status 200 
+   :body "Usage: \n\n [base-url]/molecule/[url-encoded-smiles-string]?indigo-param-name=param-value"})
 
 (defn serve-molecule-image [req]
-  (info "serve molecule image input" req)
-
   (try
     (let [params (req :params)
-          smi    (-> (params :smi)
-                     (url-decode))
-          opts   (-> params
-                     (dissoc :smi)
-                     (assoc :render-output-format "png"))
+          smi    (-> (params :smi) url-decode)
+          opts   (-> params (dissoc :smi))
           indigo (init-indigo opts)
           bytes  (render-to-buffer indigo smi)
           image  (ByteArrayInputStream. bytes)]
@@ -33,7 +30,7 @@
       {:status 400
        :body   (str (.getMessage e))})))
 
-(def all-routes ["/" {"index.html" serve-index
+(def all-routes ["/" {"index.html"                     serve-index
                       ["molecule/" [url-encoded :smi]] serve-molecule-image}])
 
 (def api-handler (-> all-routes
