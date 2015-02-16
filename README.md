@@ -15,7 +15,9 @@ Usage:
  
 Example:
  
+ http://localhost:8000/molecule/OCCc1c%28C%29%5Bn%2B%5D%28%3Dcs1%29Cc2cnc%28C%29nc%28N%292?render-comment=Vitamin%20B1
  
+ ![vitamin b1](img/vit_b1.png)
  
  
 ## REPL
