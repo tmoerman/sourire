@@ -1,7 +1,7 @@
 (ns sourire.handler
   (:require [bidi.bidi :as bidi]
             [bidi.ring :refer [make-handler]]
-            [taoensso.timbre :refer [info]]
+            [taoensso.timbre :refer [info error]]
             [sourire.core :refer [init-indigo render-to-buffer]]
             [sourire.victorinox :refer [url-encoded url-decode]])
   (:use [ring.middleware params
@@ -14,19 +14,21 @@
    :body "Usage: \n\n [base-url]/molecule/[url-encoded-smiles-string]?indigo-param-name=param-value"})
 
 (defn serve-molecule-image [req]
+  (info "serving request" req)
   (try
     (let [params (req :params)
           smi    (-> (params :smi) url-decode)
           opts   (-> params (dissoc :smi))
           indigo (init-indigo opts)
-          bytes  (render-to-buffer indigo smi)
-          image  (ByteArrayInputStream. bytes)]
+          
+          image (->> smi
+                     (render-to-buffer indigo)
+                     (ByteArrayInputStream.))]
       {:status  200
        :body    image
        :headers {"Content-Type" "image/png"}})
     (catch Exception e
-      (.printStackTrace e)
-
+      (error e)
       {:status 400
        :body   (str (.getMessage e))})))
 
