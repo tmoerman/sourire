@@ -12,7 +12,15 @@ cheminformatics toolkit.
 ## Usage
 
 `[base-url]/molecule/[url-encoded-smiles-string]?indigo-param-name=param-value`
- 
+   
+## INSTALLATION
+
+ TODO
+
+## REPL 
+
+ TODO
+
 ## Examples
 
 ##### Vitamin B1
@@ -33,11 +41,8 @@ cheminformatics toolkit.
  
 ![Caffeine](img/caffeine.png)
 
- 
-## REPL
+##### Oenanthotoxin
 
- TODO
- 
-## STANDALONE
+`http://localhost:8000/molecule/CCC%5BC%40%40H%5D%28O%29CC%5CC%3DC%5CC%3DC%5CC%23CC%23C%5CC%3DC%5CCO?render-comment=oenanthotoxin`
 
- TODO
+![Caffeine](img/oenanthotoxin.png)
