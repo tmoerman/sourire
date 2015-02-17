@@ -4,6 +4,7 @@
 (def aflatoxin     "O1C=C[C@H]([C@H]1O2)c3c2cc(OC)c4c3OC(=O)C5=C4CCC(=O)5")
 (def glucose       "OC[C@@H](O1)[C@@H](O)[C@H](O)[C@@H](O)[C@@H](O)1")
 (def thiamine      "OCCc1c(C)[n+](=cs1)Cc2cnc(C)nc(N)2")
+(def caffeine      "CN1C=NC2=C1C(=O)N(C)C(=O)N2C")
 
 (defn gen-url
   [smi]
@@ -12,3 +13,5 @@
 (gen-url flavopereirin)
 
 (gen-url thiamine)
+
+(gen-url glucose)
