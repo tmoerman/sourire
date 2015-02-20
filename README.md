@@ -32,7 +32,7 @@ You can provide a Java argument to specify the web server port:
 
 ## REPL 
 
-You can run a Clojure REPL supporting the famous Stuart Sierre [Workflow, Reloaded](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded) pattern:
+You can run a Clojure REPL supporting the famous Stuart Sierre [Workflow, Reloaded](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded) pattern.
 
 ```bash
 $ lein user-repl
@@ -83,3 +83,9 @@ Smiles code: `CCC[C@@H](O)CC\\C=C\\C=C\\C#CC#C\\C=C\\CO`
 Sourire URL: `http://localhost:8000/molecule/CCC%5BC%40%40H%5D%28O%29CC%5CC%3DC%5CC%3DC%5CC%23CC%23C%5CC%3DC%5CCO?render-comment=oenanthotoxin`
 
 ![Caffeine](img/oenanthotoxin.png)
+
+## License
+
+The Do Whatever The Hell You Like License. 
+
+I am not liable for accidentally launched intercontinental ballistic missionaries.
