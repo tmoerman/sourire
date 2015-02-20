@@ -14,7 +14,7 @@ cheminformatics toolkit.
 `[base-url]/molecule/[url-encoded-smiles-string]?indigo-param-name=param-value`
 
 Smiles notation uses characters that are considered unsafe for use in URLs. Therefore
-you will need to provide a smiles string in [URL encoded](http://www.w3schools.com/tags/ref_urlencode.asp) format.
+the API only accepts smiles strings in [URL encoded](http://www.w3schools.com/tags/ref_urlencode.asp) format.
    
 ## INSTALLATION
 
