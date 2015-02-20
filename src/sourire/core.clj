@@ -4,29 +4,37 @@
   (:import [com.ggasoftware.indigo Indigo
                                    IndigoRenderer]))
 
-(defn init-indigo
-  "Initializes an Indigo instance.
-   Accepts an optional map representing the options for the indigo instance.
-   The map may consist of either [string, string] or [keyword, string] pairs."
-  [& opts]
-  (let [kvs (some->> opts seq first (map-keys kw->str))
-        indigo (new Indigo)]
-    (doseq [[k v] kvs] (doto indigo (.setOption k v)))
-    indigo))
+(defn init-opts [opts] (-> (map-keys kw->str opts)
+                           (assoc "render-output-format" "png")))
 
-(defn render-to-file
-  "Accepts an Indigo instance, a smiles string and a file-name
-   to which to render the molecule image as png."
-  [indigo smi file-name]
-  (let [renderer (IndigoRenderer. indigo)
-        molecule (.loadMolecule indigo smi)]
-    (.renderToFile renderer molecule file-name)))
+(defn init-indigo+renderer
+  "Initialize an Indigo and IndigoRenderer instance. 
+   Due to Indigo idiosyncrasies, the order of initialization has to be as follows:
+   - initialize Indigo instance
+   - create IndigoRenderer with the Indigo instance
+   - lastly, set the optional parameters on the Indigo instance
+   
+   This behaviour is as designed: see following discussion thread:
+   https://groups.google.com/forum/#!msg/indigo-general/2KQTqIudqDQ/xu3_hajYXF4J"
+  ([] (init-indigo+renderer {}))
+  ([opts]
+   (let [indigo (new Indigo)
+         renderer (IndigoRenderer. indigo)]
+     (doseq [[k v] (init-opts opts)]
+       (doto indigo (.setOption k v)))
+     {:indigo   indigo
+      :renderer renderer})))
 
 (defn render-to-buffer
   "Accepts an Indigo instance and a smiles string.
    Returns the molecule image as a byte array buffer."
-  [indigo smi]
-  (let [renderer (IndigoRenderer. indigo)
-        molecule (.loadMolecule indigo smi)]
-    (.setOption indigo "render-output-format" "png")
+  [{:keys [indigo renderer]} smi]
+  (let [molecule (.loadMolecule indigo smi)]
     (.renderToBuffer renderer molecule)))
+
+(defn render-to-file
+  "Accepts an Indigo instance, a smiles string and a file-name
+   to which to render the molecule image as png."
+  [{:keys [indigo renderer]} smi file-name]
+  (let [molecule (.loadMolecule indigo smi)]
+    (.renderToFile renderer molecule file-name)))

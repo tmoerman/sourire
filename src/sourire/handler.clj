@@ -2,7 +2,7 @@
   (:require [bidi.bidi :as bidi]
             [bidi.ring :refer [make-handler]]
             [taoensso.timbre :refer [info error]]
-            [sourire.core :refer [init-indigo render-to-buffer]]
+            [sourire.core :refer [init-indigo+renderer render-to-buffer]]
             [sourire.victorinox :refer [url-encoded url-decode]])
   (:use [ring.middleware params
          keyword-params
@@ -19,10 +19,10 @@
     (let [params (req :params)
           smi    (-> (params :smi) url-decode)
           opts   (-> params (dissoc :smi))
-          indigo (init-indigo opts)
+          i+r    (init-indigo+renderer opts)
           
           image (->> smi
-                     (render-to-buffer indigo)
+                     (render-to-buffer i+r)
                      (ByteArrayInputStream.))]
       {:status  200
        :body    image
