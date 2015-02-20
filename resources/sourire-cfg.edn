@@ -1,2 +1,1 @@
-{:handler    {}
- :web-server {:port 8000}}
+{:web-server {:port 8000}}

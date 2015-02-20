@@ -17,7 +17,7 @@
                  [com.ggasoftware.indigo/indigo-renderer "1.1.12"]]
 
   :source-paths ["src"]
-
+  
   :profiles {:user {:source-paths ["dev"]
                     :repl-options {:port 8777}}
 
@@ -32,6 +32,11 @@
                    :plugins [[lein-midje "3.1.3"]
                              [lein-kibit "0.0.8"]]
 
-                   :main user}}
+                   :main user}
+             
+             :standalone {:main launcher
+                          :aot [launcher]}}
 
-  :aliases {"user-repl" ["with-profile" "+user" "repl"]})
+  :aliases {"user-repl"  ["with-profile" "+user" "repl"]
+            
+            "create-standalone" ["with-profile" "+standalone" "uberjar"]})
