@@ -1,4 +1,4 @@
-# sourire
+# Sourire
 
 > "D'un enfant le sourire - Agrandit l'univers" -- Charles de Leusse
 
@@ -32,7 +32,23 @@ You can provide a Java argument to specify the web server port:
 
 ## REPL 
 
- TODO
+You can run a Clojure REPL supporting the famous Stuart Sierre [Workflow, Reloaded](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded) pattern:
+
+```bash
+$ lein user-repl
+WARNING: user-level profile defined in project files.
+nREPL server started on port 8777 on host 127.0.0.1
+REPL-y 0.3.0
+Clojure 1.7.0-alpha5
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+    Exit: Control+D or (exit) or (quit)
+ Results: Stored in vars *1, *2, *3, an exception in *e
+
+user=> (launch)
+```
 
 ## Examples
 
