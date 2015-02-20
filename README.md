@@ -16,9 +16,19 @@ cheminformatics toolkit.
 Smiles notation uses characters that are considered unsafe for use in URLs. Therefore
 the API only accepts smiles strings in [URL encoded](http://www.w3schools.com/tags/ref_urlencode.asp) format.
    
-## INSTALLATION
+## Run
 
- TODO
+Use leiningen to create a runnable jar (assuming you are in the project folder):
+
+`$ lein create-standalone`
+
+Launch the application:
+
+`java -jar target/sourire-0.1.0-SNAPSHOT-standalone.jar`
+
+You can provide a Java argument to specify the web server port:
+
+`java -jar target/sourire-0.1.0-SNAPSHOT-standalone.jar :port 8080`
 
 ## REPL 
 
