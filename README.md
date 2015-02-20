@@ -18,7 +18,7 @@ the API only accepts smiles strings in [URL encoded](http://www.w3schools.com/ta
    
 ## Run
 
-Use leiningen to create a runnable jar (assuming you are in the project folder):
+Use [leiningen](http://leiningen.org/) to create a runnable jar (assuming you are in the project folder):
 
 `$ lein create-standalone`
 
