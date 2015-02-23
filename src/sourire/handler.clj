@@ -3,7 +3,7 @@
             [bidi.ring :refer [make-handler]]
             [taoensso.timbre :refer [info error]]
             [sourire.core :refer [init-indigo+renderer render-to-buffer]]
-            [sourire.victorinox :refer [url-encoded url-decode]])
+            [sourire.victorinox :refer [url-decode]])
   (:use [ring.middleware params
          keyword-params
          nested-params])
@@ -32,8 +32,12 @@
       {:status 400
        :body   (str (.getMessage e))})))
 
-(def all-routes ["/" {"index.html"                     serve-index
-                      ["molecule/" [url-encoded :smi]] serve-molecule-image}])
+(def molecule-regex #"[A-Z0-9a-z %.+-_*]+")
+
+(def all-routes ["/" {""           serve-index
+                      "index.html" serve-index
+                      ["molecule/" [molecule-regex :smi]] serve-molecule-image
+                      ["molecule/" [molecule-regex :smi] "/image.png"] serve-molecule-image}])
 
 (def api-handler (-> all-routes
                      make-handler

@@ -19,7 +19,3 @@
 (defn url-decode
   [s]
   (URLDecoder/decode s))
-
-(def url-encoded
-  "A regex matching on url encoded strings."
-  #".*%[0-9a-zA-Z]+|\.\.")
