@@ -12,9 +12,15 @@
 
 (defn gen-url [smi] (str "http://localhost:8000/molecule/" (url-encode smi)))
 
+(def test-mol "Clc1ccccc1CN2CCc3sccc3C2")
+
+(url-encode test-mol)
+
 (gen-url oenanthotoxin)
 (gen-url flavopereirin)
 (gen-url thiamine)
 (gen-url glucose)
 (gen-url big-one)
+
+(gen-url test-mol)
 
