@@ -9,7 +9,7 @@
                  [com.taoensso/timbre "3.3.1"]
                  [prismatic/plumbing "0.3.7"]
 
-                 [bidi "1.18.0"]
+                 [bidi "1.18.0" :exclusions [org.clojure/clojure]]
                  [ring "1.3.2"]
                  [http-kit "2.1.16"]
 
@@ -17,7 +17,7 @@
                  [com.ggasoftware.indigo/indigo-renderer "1.1.12"]]
 
   :source-paths ["src"]
-  
+
   :profiles {:user {:source-paths ["dev"]
                     :repl-options {:port 8777}}
 
@@ -33,10 +33,10 @@
                              [lein-kibit "0.0.8"]]
 
                    :main user}
-             
+
              :standalone {:main launcher
                           :aot [launcher]}}
 
   :aliases {"user-repl"  ["with-profile" "+user" "repl"]
-            
+
             "create-standalone" ["with-profile" "+standalone" "uberjar"]})
