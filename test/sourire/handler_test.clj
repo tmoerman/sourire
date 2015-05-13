@@ -23,6 +23,8 @@
    "OCCc1c(C)[n+](=cs1)Cc2cnc(C)nc(N)2"
    "CC(=O)OCCC(/C)=C\\C[C@H](C(C)=C)CCC=C"
    "CCC[C@@H](O)CC\\C=C\\C=C\\C#CC#C\\C=C\\CO"
+   "CN(C)CC/C=C\\1c2ccccc2COc3ccc(cc\\13)CC(=O)O"
+   "C(=C/c1ccccc1)/CN2CCN(CC2)C(c3ccccc3)c4ccccc4"
    "OC[C@@H](O1)[C@@H](O)[C@H](O)[C@@H](O)[C@@](O)1"
    "O1C=C[C@H]([C@H]1O2)c3c2cc(OC)c4c3OC(=O)C5C4CCC(=O)5"
    "CC(=[O:1])[OH:2] . CC[OH:3] > [H+] > CC(=[O:2])[O:3]CC . [OH2:1]"
@@ -59,3 +61,12 @@
 
              (->> smiles-molecules
                   (map molecule-with-suffix-matches-regex)) => (has every? true?)))
+
+
+(def encoded-formula-with-parens "O%3DC1OC(c2ccccc12)(c3ccc(O)cc3)c4ccc(O)cc4")
+
+(fact "about accepting parens '()' in the encoded url"
+
+      (re-find molecule-regex encoded-formula-with-parens) => encoded-formula-with-parens
+
+       )

@@ -32,7 +32,7 @@
       {:status 400
        :body   (str (.getMessage e))})))
 
-(def molecule-regex #"[a-zA-Z0-9%\.\+\-\_\*]+")
+(def molecule-regex #"[a-zA-Z0-9%\.\+\-\_\*\(\)]+")
 
 (def all-routes ["/" {""           serve-index
                       "index.html" serve-index
