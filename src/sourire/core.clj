@@ -1,11 +1,19 @@
 (ns sourire.core
-  (:require [plumbing.core :refer [map-keys]]
+  (:require [plumbing.core :refer [map-keys map-vals]]
             [sourire.victorinox :refer [kw->str]])
   (:import [com.ggasoftware.indigo Indigo
                                    IndigoRenderer]))
 
-(defn init-opts [opts] (-> (map-keys kw->str opts)
-                           (assoc "render-output-format" "png")))
+(defn clean [opts] (->> opts
+                        (map-keys kw->str)
+                        (map-vals #(or % ""))))
+
+(defn add-defaults [opts] (-> opts
+                              (assoc "ignore-stereochemistry-errors" true)
+                              (assoc "ignore-noncritical-query-features" true)
+                              (assoc "render-output-format" "png")))
+
+(defn init-opts [opts] (-> opts clean add-defaults))
 
 (defn init-indigo+renderer
   "Initialize an Indigo and IndigoRenderer instance. 
