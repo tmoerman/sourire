@@ -13,6 +13,14 @@
   {:status 200 
    :body "Usage: \n\n [base-url]/molecule/[url-encoded-smiles-string]?indigo-param-name=param-value"})
 
+(defn png-response [i+r smiles]
+  (let [image (->> smiles
+                   (render-to-buffer i+r)
+                   (ByteArrayInputStream.))]
+    {:status  200
+     :body    image
+     :headers {"Content-Type" "image/png"}}))
+
 (defn serve-molecule-image [req]
   (info "serving request" req)
   (try
@@ -21,20 +29,10 @@
           opts   (-> params (dissoc :smi))
           i+r    (init-indigo+renderer opts)]
       (try
-        (let [image (->> smi
-                         (render-to-buffer i+r)
-                         (ByteArrayInputStream.))]
-          {:status  200
-           :body    image
-           :headers {"Content-Type" "image/png"}})
+        (png-response i+r smi)
         (catch IndigoException e
           (error e)
-          (let [backup-image (->> (url-decode "%5BBa%5D%5BC%5D%5BK%5D%5BU%5D%5BP%5D")
-                                  (render-to-buffer i+r)
-                                  (ByteArrayInputStream.))]
-            {:status  200
-             :body    backup-image
-             :headers {"Content-Type" "image/png"}}))))
+          (png-response i+r "[Ba][C][K][U][P]"))))
     (catch Exception e
       (error e)
       {:status 400
