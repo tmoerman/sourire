@@ -6,7 +6,8 @@
   (:use [ring.middleware params
          keyword-params
          nested-params])
-  (:import (java.io ByteArrayInputStream FileInputStream)))
+  (:import (java.io ByteArrayInputStream))
+  (:import com.ggasoftware.indigo.IndigoException))
 
 (defn serve-index [_]
   {:status 200 
@@ -18,19 +19,26 @@
     (let [params (req :params)
           smi    (-> (params :smi) url-decode)
           opts   (-> params (dissoc :smi))
-          i+r    (init-indigo+renderer opts)
-          
-          image (->> smi
-                     (render-to-buffer i+r)
-                     (ByteArrayInputStream.))]
-      {:status  200
-       :body    image
-       :headers {"Content-Type" "image/png"}})
+          i+r    (init-indigo+renderer opts)]
+      (try
+        (let [image (->> smi
+                         (render-to-buffer i+r)
+                         (ByteArrayInputStream.))]
+          {:status  200
+           :body    image
+           :headers {"Content-Type" "image/png"}})
+        (catch IndigoException e
+          (error e)
+          (let [backup-image (->> (url-decode "%5BBa%5D%5BC%5D%5BK%5D%5BU%5D%5BP%5D")
+                                  (render-to-buffer i+r)
+                                  (ByteArrayInputStream.))]
+            {:status  200
+             :body    backup-image
+             :headers {"Content-Type" "image/png"}}))))
     (catch Exception e
       (error e)
-      {:status  200
-       :body    (FileInputStream. "resources/backup.png")
-       :headers {"Content-Type" "image/png"}})))
+      {:status 400
+       :body   (str (.getMessage e))})))
 
 (def molecule-regex #"[a-zA-Z0-9%\.\+\-\_\*\(\)]+")
 
