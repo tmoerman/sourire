@@ -1,13 +1,12 @@
 (ns sourire.handler
-  (:require [bidi.bidi :as bidi]
-            [bidi.ring :refer [make-handler]]
+  (:require [bidi.ring :refer [make-handler]]
             [taoensso.timbre :refer [info error]]
             [sourire.core :refer [init-indigo+renderer render-to-buffer]]
             [sourire.victorinox :refer [url-decode]])
   (:use [ring.middleware params
          keyword-params
          nested-params])
-  (:import (java.io ByteArrayInputStream)))
+  (:import (java.io ByteArrayInputStream FileInputStream)))
 
 (defn serve-index [_]
   {:status 200 
@@ -29,8 +28,9 @@
        :headers {"Content-Type" "image/png"}})
     (catch Exception e
       (error e)
-      {:status 400
-       :body   (str (.getMessage e))})))
+      {:status  200
+       :body    (FileInputStream. "resources/backup.png")
+       :headers {"Content-Type" "image/png"}})))
 
 (def molecule-regex #"[a-zA-Z0-9%\.\+\-\_\*\(\)]+")
 
