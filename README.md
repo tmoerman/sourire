@@ -16,7 +16,19 @@ cheminformatics toolkit.
 Smiles notation uses characters that are considered unsafe for use in URLs. Therefore
 the API only accepts smiles strings in [URL encoded](http://www.w3schools.com/tags/ref_urlencode.asp) format.
    
-## Run
+## Pull and run Docker image
+
+Sourire is automatically built as a Docker image and [available](https://registry.hub.docker.com/u/thomasjmoerman/sourire/) from the Docker registry.
+
+Pull the image from the registry:
+
+`docker pull thomasjmoerman/sourire`
+
+Launch the container as a daemon bound to host port 9999 (or another port of your choice):
+
+`docker run -d -p 9999:8080 thomasjmoerman/sourire:latest`
+
+## Build and run manually
 
 Use [leiningen](http://leiningen.org/) to create a runnable jar (assuming you are in the project folder):
 
@@ -29,6 +41,7 @@ Launch the application:
 You can provide a Java argument to specify the web server port:
 
 `java -jar target/sourire-0.1.0-SNAPSHOT-standalone.jar :port 8080`
+
 
 ## REPL 
 
