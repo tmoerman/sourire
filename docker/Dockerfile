@@ -14,25 +14,26 @@ FROM ubuntu:14.04
 
 MAINTAINER Thomas Moerman (https://twitter.com/thomasjmoerman)
 
+# Install all needed packages and clean up
 RUN apt-get -y update
 RUN sudo apt-get install -y openjdk-7-jdk wget git \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+# Install Leiningen 2
 RUN wget -O /bin/lein https://raw.github.com/technomancy/leiningen/stable/bin/lein
 RUN chmod 755 /bin/lein
 
+# Specify environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 ENV LEIN_ROOT yes
 
-RUN lein version
-
 WORKDIR /data
 
-# Clone the git repo and switch to the checkout
+# Clone the Sourire git repo
 RUN git clone https://github.com/tmoerman/sourire.git
 
-# Move the build artifact to bin and remove the temporary files
+# Build the standalone jar artifact, move the artifact to bin and remove the temporary files
 RUN cd /data/sourire \
   && lein create-standalone \
   && mv /data/sourire/target/sourire-*-standalone.jar /data/sourire.jar \
@@ -42,6 +43,7 @@ RUN cd /data/sourire \
 # State this in the docker file as info for the operator (`docker inspect <id>`)
 EXPOSE 8080
 
+# Launch the Sourire web application on port 8080
 ENTRYPOINT java -jar sourire.jar :port 8080
 CMD [""]
 
