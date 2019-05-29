@@ -45,7 +45,7 @@ You can provide a Java argument to specify the web server port:
 
 ## REPL 
 
-You can run a Clojure REPL supporting the famous Stuart Sierre [Workflow, Reloaded](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded) pattern.
+You can run a Clojure REPL supporting the famous Stuart Sierra [Workflow, Reloaded](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded) pattern.
 
 ```bash
 $ lein user-repl
